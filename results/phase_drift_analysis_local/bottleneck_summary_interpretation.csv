@@ -1,0 +1,9 @@
+milestone_week,application_type,top_delay_edge,top_delay_h,top_delay_freq_shift,top_shift_edge,top_shift_freq,top_shift_delay_h
+19,Limit raise,A_Validating -> O_Returned,0.0164189444444444,8.0,O_Create Offer -> O_Created,-22.0,0.0001089722222222
+19,New credit,O_Returned -> W_Validate application,50.87771294444445,40.0,W_Complete application -> A_Complete,-67.0,1.2222222222222244e-06
+24,Limit raise,O_Returned -> O_Accepted,17.584203749999997,8.0,A_Concept -> A_Accepted,-31.0,-14.582690305555596
+24,New credit,A_Incomplete -> A_Validating,32.850677111111104,19.0,O_Create Offer -> O_Created,-123.0,-1.5833333333333194e-05
+25,Limit raise,A_Accepted -> O_Create Offer,34.70885822222225,14.0,A_Concept -> A_Accepted,19.0,13.267861333333336
+25,New credit,O_Returned -> O_Accepted,70.56672111111111,56.0,O_Accepted -> A_Pending,182.0,-2.4722222222222197e-06
+49,Limit raise,A_Accepted -> O_Create Offer,0.0703760555555555,6.0,A_Validating -> O_Returned,-27.0,-0.0128343888888888
+49,New credit,O_Returned -> W_Validate application,36.806843750000006,36.0,O_Accepted -> A_Pending,-48.0,2.777777777777777e-07

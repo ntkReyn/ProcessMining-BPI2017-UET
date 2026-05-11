@@ -1,0 +1,13 @@
+activity,business_phase
+A_Accepted,Risk/Decision
+A_Complete,Offer/Closure
+A_Concept,Intake
+A_Create Application,Intake
+A_Pending,Risk/Decision
+A_Validating,Risk/Decision
+O_Accepted,Offer/Closure
+O_Create Offer,Offer/Closure
+O_Created,Offer/Closure
+O_Returned,Other
+O_Sent,Offer/Closure
+W_Complete application,Intake

@@ -1,0 +1,3 @@
+segment,risk_level,non_success_rate,median_norm_distance,median_rework,recommended_action
+New credit,high,0.4724,0.4,1.0,"Ưu tiên can thiệp sớm: tạo cảnh báo lệch happy path ở prefix 30-40%, gom cụm case đi vào nhánh offer/rework để xử lý trước"
+Limit raise,low,0.2667,0.2308,1.0,Duy trì vận hành: theo dõi drift định kỳ theo tuần và cảnh báo khi p90 tăng

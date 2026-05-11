@@ -1,0 +1,13 @@
+step_order,activity,business_phase
+1,A_Create Application,Intake
+2,A_Concept,Intake
+3,A_Accepted,Risk/Decision
+4,O_Create Offer,Offer/Closure
+5,O_Created,Offer/Closure
+6,O_Sent,Offer/Closure
+7,W_Complete application,Intake
+8,A_Complete,Offer/Closure
+9,A_Validating,Risk/Decision
+10,O_Returned,Offer/Closure
+11,O_Accepted,Offer/Closure
+12,A_Pending,Risk/Decision

@@ -1,0 +1,26 @@
+feature,importance
+prefix_elapsed_hours,0.15353117596530513
+act__A_Cancelled,0.12334947749652421
+prefix_has_validate,0.12274516217475641
+act__A_Complete,0.10813370666445635
+act__A_Validating,0.10073708782924161
+act__A_Submitted,0.09866382823647965
+act__W_Handle leads,0.09346817094729129
+app_type=Limit raise,0.0685163773382202
+app_type=New credit,0.06615549952925366
+act__W_Complete application,0.02775430400026679
+prefix_unique_acts,0.009740290141825902
+act__O_Create Offer,0.009502898097557952
+act__O_Sent,0.009298482611092371
+act__O_Cancelled,0.0045210528855313915
+act__O_Created,0.0036895460504953524
+act__W_Call after offers,0.00019294003170175099
+act__A_Accepted,0.0
+act__A_Denied,0.0
+act__A_Create Application,0.0
+act__A_Concept,0.0
+act__O_Refused,0.0
+act__W_Assess potential fraud,0.0
+act__O_Returned,0.0
+prefix_has_rework,0.0
+prefix_has_offer,0.0

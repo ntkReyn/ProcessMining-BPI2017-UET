@@ -1,0 +1,31 @@
+variant,count,ratio,cum_ratio
+"('A_Create Application', 'A_Concept', 'A_Accepted', 'O_Create Offer', 'O_Created', 'O_Sent (mail and online)', 'W_Complete application', 'A_Complete')",27,0.18120805369127516,0.18120805369127516
+"('A_Validating', 'O_Returned', 'O_Accepted', 'A_Pending')",18,0.12080536912751678,0.30201342281879195
+"('A_Cancelled', 'O_Cancelled')",16,0.10738255033557047,0.40939597315436244
+"('A_Create Application', 'A_Concept', 'A_Accepted', 'O_Create Offer', 'O_Created', 'O_Sent (mail and online)', 'A_Complete')",11,0.0738255033557047,0.48322147651006714
+"('A_Create Application', 'A_Concept')",7,0.04697986577181208,0.5302013422818792
+"('A_Validating', 'O_Returned', 'A_Incomplete', 'A_Validating', 'O_Accepted', 'A_Pending')",5,0.03355704697986577,0.5637583892617449
+"('O_Accepted', 'A_Pending', 'W_Validate application')",4,0.026845637583892617,0.5906040268456375
+"('A_Validating', 'O_Returned', 'W_Validate application', 'A_Incomplete', 'A_Validating')",4,0.026845637583892617,0.6174496644295301
+"('A_Accepted', 'O_Create Offer', 'O_Created', 'O_Sent (mail and online)', 'A_Complete')",3,0.020134228187919462,0.6375838926174495
+"('A_Validating', 'O_Accepted', 'A_Pending')",3,0.020134228187919462,0.657718120805369
+"('A_Validating', 'O_Returned', 'A_Denied', 'O_Refused')",2,0.013422818791946308,0.6711409395973152
+"('O_Accepted', 'A_Pending')",2,0.013422818791946308,0.6845637583892615
+"('A_Incomplete', 'A_Validating', 'O_Accepted', 'A_Pending')",2,0.013422818791946308,0.6979865771812078
+"('A_Validating', 'O_Returned')",2,0.013422818791946308,0.7114093959731541
+"('O_Create Offer', 'O_Created', 'O_Sent (mail and online)')",2,0.013422818791946308,0.7248322147651004
+"('A_Validating', 'W_Validate application', 'A_Incomplete', 'O_Returned', 'A_Validating', 'O_Accepted', 'A_Pending')",2,0.013422818791946308,0.7382550335570467
+"('A_Validating', 'O_Returned', 'W_Validate application', 'A_Incomplete', 'A_Validating', 'O_Accepted', 'A_Pending')",2,0.013422818791946308,0.751677852348993
+"('A_Create Application', 'A_Concept', 'A_Accepted')",2,0.013422818791946308,0.7651006711409393
+"('A_Validating', 'O_Returned', 'O_Accepted', 'A_Pending', 'W_Validate application')",2,0.013422818791946308,0.7785234899328856
+"('A_Validating', 'O_Accepted', 'A_Pending', 'O_Cancelled')",1,0.006711409395973154,0.7852348993288587
+"('W_Validate application', 'A_Incomplete', 'A_Validating', 'W_Validate application', 'A_Incomplete', 'A_Validating', 'O_Accepted', 'A_Pending', 'W_Validate application')",1,0.006711409395973154,0.7919463087248318
+"('A_Accepted', 'O_Create Offer', 'O_Created', 'O_Sent (mail and online)', 'A_Complete', 'O_Cancelled')",1,0.006711409395973154,0.798657718120805
+"('A_Validating', 'O_Returned', 'W_Validate application', 'A_Incomplete')",1,0.006711409395973154,0.8053691275167781
+"('A_Create Application', 'A_Concept', 'A_Accepted', 'O_Create Offer', 'O_Created', 'O_Sent (mail and online)', 'W_Complete application', 'A_Complete', 'A_Cancelled', 'O_Cancelled')",1,0.006711409395973154,0.8120805369127513
+"('A_Create Application', 'A_Concept', 'A_Accepted', 'O_Create Offer', 'O_Created', 'O_Sent (online only)', 'W_Complete application', 'A_Complete', 'O_Create Offer', 'O_Created', 'O_Sent (mail and online)')",1,0.006711409395973154,0.8187919463087244
+"('A_Incomplete', 'O_Accepted', 'A_Pending', 'W_Call incomplete files', 'O_Cancelled', 'O_Cancelled', 'O_Cancelled')",1,0.006711409395973154,0.8255033557046976
+"('O_Returned', 'A_Validating', 'A_Incomplete', 'A_Denied', 'O_Refused', 'O_Refused', 'W_Call incomplete files', 'A_Denied')",1,0.006711409395973154,0.8322147651006707
+"('A_Validating', 'O_Returned', 'O_Accepted', 'A_Pending', 'O_Cancelled')",1,0.006711409395973154,0.8389261744966439
+"('A_Validating', 'W_Validate application', 'A_Incomplete', 'O_Returned', 'A_Validating')",1,0.006711409395973154,0.845637583892617
+"('A_Validating', 'A_Incomplete')",1,0.006711409395973154,0.8523489932885902

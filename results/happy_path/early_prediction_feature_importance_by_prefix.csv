@@ -1,0 +1,76 @@
+prefix_len,feature,importance_abs_coef
+5,act__A_Accepted,2.4700826951629713
+5,act__W_Handle leads,1.9127274059738024
+5,act__W_Complete application,1.0095881430534952
+5,act__O_Sent,0.9784005874114063
+5,app_type=New credit,0.957870114453183
+5,app_type=Limit raise,0.9304824336003796
+5,act__A_Submitted,0.6156026787412171
+5,act__A_Concept,0.40181291071199354
+5,act__O_Created,0.37076229672926486
+5,prefix_has_offer,0.2662409698708224
+5,act__W_Assess potential fraud,0.2545697726489156
+5,act__A_Create Application,0.22592745780760873
+5,act__O_Create Offer,0.18219940663543735
+5,prefix_unique_acts,0.17899823038940157
+5,prefix_len,0.1369384042596504
+5,prefix_elapsed_hours,0.015534221577057151
+5,prefix_has_validate,0.0
+5,prefix_has_rework,0.0
+8,act__A_Validating,71.97391136526845
+8,prefix_has_validate,71.97391136526845
+8,act__A_Cancelled,45.36960176199833
+8,act__W_Handle leads,8.875839482015454
+8,act__W_Complete application,5.597314051987914
+8,act__A_Accepted,4.062256044127099
+8,act__A_Denied,4.007578589849787
+8,act__O_Created,3.3209579461490772
+8,prefix_unique_acts,2.9891606594962243
+8,act__A_Complete,2.7131683513928766
+8,act__O_Refused,2.598254893123595
+8,act__O_Cancelled,2.3297614718570383
+8,app_type=New credit,2.087272585056092
+8,app_type=Limit raise,1.901121755873644
+8,act__O_Sent,1.6850476587630467
+8,prefix_len,1.4892066334616045
+8,act__A_Submitted,1.2887461081814664
+8,act__A_Concept,1.2500780011707724
+8,act__O_Create Offer,1.0088521263028316
+8,act__A_Create Application,0.5574861066842948
+8,prefix_elapsed_hours,0.5221254944253414
+8,act__W_Call after offers,0.41274647996524144
+8,act__W_Assess potential fraud,0.3994067888451775
+8,prefix_has_offer,0.18615082918270057
+8,act__O_Returned,0.06870365045924046
+8,prefix_has_rework,0.0
+12,act__O_Accepted,328.441716287293
+12,act__A_Denied,284.5438275805648
+12,act__A_Cancelled,234.0326406368624
+12,act__A_Pending,163.81969907596306
+12,act__A_Validating,157.72053999498618
+12,act__O_Refused,143.12079860073896
+12,prefix_has_validate,95.53960781970122
+12,act__O_Returned,95.21634828219908
+12,prefix_has_rework,83.61214080335667
+12,act__A_Incomplete,82.14736105843402
+12,act__W_Validate application,80.317151619777
+12,act__W_Handle leads,79.31143605147363
+12,app_type=Limit raise,32.635418319144705
+12,prefix_unique_acts,32.403270705637304
+12,app_type=New credit,30.808025769499555
+12,act__A_Complete,23.532330512743954
+12,act__W_Call after offers,22.92854707256002
+12,act__O_Cancelled,22.143923075597588
+12,prefix_len,21.928710600941077
+12,act__W_Call incomplete files,16.690737438189288
+12,act__O_Create Offer,14.034547316275306
+12,act__A_Accepted,10.152966737783391
+12,act__O_Created,5.912380758911364
+12,act__W_Assess potential fraud,5.285709971751171
+12,act__A_Create Application,2.9863414966574644
+12,act__A_Submitted,2.3236083441979534
+12,prefix_has_offer,1.8273925500855446
+12,act__A_Concept,1.621101624010123
+12,act__W_Complete application,1.2415291527028698
+12,prefix_elapsed_hours,0.48069487616067114
+12,act__O_Sent,0.4037013519072334
