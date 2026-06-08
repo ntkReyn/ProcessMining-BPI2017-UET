@@ -1,0 +1,203 @@
+\documentclass[a4paper,12pt]{article}
+
+% --- GÓI HỖ TRỢ TIẾNG VIỆT & HÌNH ẢNH ---
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}
+\usepackage[vietnamese]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{array}
+\usepackage{setspace}
+\usepackage{booktabs}
+
+% --- GIÃN DÒNG CHUẨN BÁO CÁO ---
+\linespread{1.2}
+
+% --- CẤU HÌNH LỀ TRANG ---
+\geometry{
+  a4paper,
+  left=30mm,
+  right=20mm,
+  top=20mm,
+  bottom=20mm
+}
+
+% --- CẤU HÌNH HYPERLINK ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue,
+}
+
+% ====================================================================
+% BẮT ĐẦU TÀI LIỆU
+% ====================================================================
+\begin{document}
+% ====================================================================
+% TRANG BÌA
+% ====================================================================
+\begin{titlepage}
+    \begin{center}
+        \textbf{\large ĐẠI HỌC QUỐC GIA HÀ NỘI}\\
+        \textbf{\large TRƯỜNG ĐẠI HỌC CÔNG NGHỆ}\\[1.5cm]
+
+        % \includegraphics[width=0.35\textwidth]{logo.png} % Bỏ comment nếu có logo
+
+        {\Large \textbf{BÁO CÁO HỌC PHẦN DỰ ÁN}}\\[0.5cm]
+        {\Large \textbf{ĐỀ TÀI: Process Mining trên dữ liệu ngân hàng BPI-Challenge 2017}}\\[2cm]
+
+        \textbf{\large Giảng viên hướng dẫn:}\\
+        ThS. Nguyễn Thị Thuỳ Linh\\
+        \textbf{\large Nhóm sinh viên thực hiện}\\
+        23020329 – Nguyễn Vũ Quang Anh\\
+        23020432 – Nguyễn Thế Khôi\\[2cm]
+
+        \textbf{Hà Nội, Ngày 5 tháng 6 năm 2026}
+    \end{center}
+\end{titlepage}
+
+\begin{abstract}
+Nghiên cứu này áp dụng các kỹ thuật Process Mining toàn diện trên tập dữ liệu BPI Challenge 2017 nhằm chẩn đoán và tối ưu hóa quy trình xét duyệt khoản vay ngân hàng. Khởi đầu với phân tích nghiệp vụ, kết quả chỉ ra chiến lược phát hành nhiều đề xuất (multi-offer) giúp tăng tỷ lệ chốt giao dịch lên 59\% nhưng lại tạo ra nút thắt cổ chai bổ sung hồ sơ, làm chậm tiến độ tổng thể tới 7 ngày. Đánh giá tuân thủ khẳng định quy trình vận hành được thực thi chuẩn chỉ (Trace Fitness đạt 99.30\%), đồng thời việc áp dụng Object-Centric Process Mining (OCPM) giúp cung cấp thêm góc nhìn tương tác đa chiều giữa các đối tượng. Cuối cùng, một hệ thống học máy theo hướng đa tiền tố (multi-prefix Early Warning System) được xây dựng để dự đoán kết quả tín dụng từ sớm, đạt hiệu suất ROC-AUC 0.85 tại tiền tố 12. Tóm lại, dự án không chỉ nhận diện chính xác nguyên nhân cốt lõi gây chậm trễ hiệu suất, mà còn cung cấp giải pháp dự báo chủ động nâng cao năng lực quản trị rủi ro.
+\end{abstract}
+
+% Lời cảm ơn
+\section*{Lời Cảm Ơn}
+Chúng em xin gửi lời cảm ơn chân thành đến ThS. Nguyễn Thị Thuỳ Linh đã tận tình hướng dẫn và định hướng cho nhóm trong suốt quá trình thực hiện học phần. Sự chỉ bảo của cô là nền tảng quan trọng giúp chúng em hoàn thành dự án này.
+
+\newpage
+% ====================================================================
+% MỤC LỤC
+% ====================================================================
+\tableofcontents
+\newpage
+
+% ====================================================================
+% NỘI DUNG CHÍNH
+% ====================================================================
+
+\section{Giới thiệu chung về Process Mining}
+
+\subsection{Process Mining là gì?}
+Process Mining hay là khai phá dữ liệu quy trình, là một lĩnh vực giao thoa giữa Khoa học dữ liệu (Data Science) và Quản lý Quy trình Nghiệp vụ (Business Process Management - BPM). Khái niệm này ban đầu nghe có vẻ trừu tượng, nhưng về bản chất, nó là việc sử dụng dữ liệu thực tế để vẽ ra bức tranh chính xác về cách mọi thứ đang thực sự vận hành, thay vì dựa vào cảm tính hay những quy trình được vẽ trên giấy.
+Input của bài toán là những Event logs ghi lại nhật ký khi có hành động xảy ra. Một event logs phải có những yếu tố cơ bản như:
+\begin{itemize}
+    \item Case ID (Mã ca/Hồ sơ): Định danh duy nhất cho một quy trình cụ thể
+    \item Activity (Hoạt động): Bước công việc vừa được thực hiện
+    \item Timestamp (Dấu thời gian): Thời điểm chính xác sự kiện đó xảy ra
+\end{itemize}
+Việc thu thập và trích xuất hàng triệu dòng log này từ các nguồn dữ liệu phức tạp hoặc kho dữ liệu lưu trữ tốc độ cao chính là bước đầu tiên và quan trọng nhất.
+
+\subsection{Tại sao nên Khai phá dữ liệu quy trình}
+Trong cách quản lý truyền thống, khi muốn tối ưu quy trình, người ta thường phải phỏng vấn từng nhân viên để vẽ ra quy trình (rất tốn thời gian, chủ quan và thường không chính xác).
+
+Process Mining thay đổi hoàn toàn điều đó bằng cách mang tư duy Data-driven (Dẫn dắt bằng dữ liệu) vào quản lý quy trình. Nó cung cấp sự minh bạch tuyệt đối. Nếu một hệ thống có lỗi hoặc một chuỗi sự kiện gây ra độ trễ lớn, dữ liệu logs sẽ thể hiện ra ngay lập tức khi chúng ta EDA.
+Hơn nữa, khi kết hợp với Machine Learning, Process Mining không chỉ dừng lại ở việc phân tích quá khứ mà còn có thể dự đoán (Predictive Process Monitoring), ví dụ như dự đoán xem một đơn hàng cụ thể có nguy cơ bị trễ hạn hay không ngay khi nó vừa bước vào hệ thống.
+
+\section{Giới thiệu bài toán}
+
+\subsection{Giới thiệu về Dataset BPI2017-challenge}
+Dataset BPI Challenge 2017 là một tập dữ liệu nhật ký sự kiện thực tế, ghi lại quy trình đăng ký và xét duyệt khoản vay của một tổ chức tài chính tại Hà Lan (Loan Application Process). Tập dữ liệu chứa 1.201.090 dòng sự kiện (events) phân bổ trên 31.509 hồ sơ (cases), trải dài trong giai đoạn từ 2016 đến 2017. Các sự kiện trong dữ liệu được chia làm 3 nhóm chính: A\_ (Trạng thái đơn), O\_ (Luồng đề xuất/Offer), và W\_ (Luồng công việc Workflow của nhân viên).
+
+\subsection{Đặt Vấn Đề}
+Quy trình xét duyệt và cấp phát khoản vay tại các tổ chức tài chính thường đối mặt với thách thức lớn về việc cân bằng giữa trải nghiệm khách hàng (tỷ lệ chốt giao dịch) và chi phí vận hành (thời gian chờ đợi, nút thắt hệ thống). Tại ngân hàng đang được nghiên cứu, bộ phận vận hành phải đối diện với một loạt các bài toán phức tạp cần được giải quyết triệt để:
+
+\begin{enumerate}
+    \item \textbf{Bài toán Hiệu suất và Nút thắt (Performance \& Bottleneck):} Ngân hàng áp dụng chiến lược linh hoạt phát hành nhiều đề xuất (Multi-offer) cho một hồ sơ vay. Liệu chiến lược này thực sự mang lại lợi ích doanh thu hay chính nó đang tạo ra sự phức tạp, dẫn đến lỗi thiếu hồ sơ và gây chậm trễ cho toàn bộ hệ thống? Việc bóc tách thời gian để phân định rõ nguyên nhân cốt lõi là do khách hàng (ngâm hồ sơ) hay do năng lực xử lý chậm chạp từ phía ngân hàng là điều thiết yếu.
+    \item \textbf{Bài toán Tuân thủ Quy trình (Conformance Checking):} Khi phát hiện sự trì hoãn nghiêm trọng trong hệ thống, câu hỏi đặt ra là nguyên nhân xuất phát từ việc nhân viên vi phạm quy trình (nhảy bước, đi đường tắt) hay do thiết kế luồng công việc hiện tại đang cồng kềnh, kém hiệu quả mặc dù vẫn được tuân thủ nghiêm ngặt?
+    \item \textbf{Bài toán Dự báo Rủi ro Sớm (Predictive Analytics):} Việc để một hồ sơ vay kéo dài đến cuối quy trình, trải qua nhiều bước thẩm định rồi mới đưa ra quyết định từ chối sẽ gây lãng phí rất lớn về nguồn lực của bộ phận Back-office. Làm thế nào để xây dựng một Hệ thống Cảnh báo Sớm (Early Warning System) có khả năng dự đoán trước kết quả (Thành công/Thất bại) của một hồ sơ ngay từ những sự kiện khởi tạo đầu tiên?
+    \item \textbf{Bài toán Tối ưu Tương lai và Nhân quả (Cause-effects \& What-if Scenarios):} Từ những bất cập trong quá khứ, làm thế nào để định nghĩa lại các luồng quy trình chuẩn mực (Happy Paths) tối ưu nhất? Việc áp dụng các kịch bản mô phỏng để đánh giá thay đổi (ví dụ: luật từ chối sớm) sẽ tác động thế nào đến hiệu suất tổng thể trước khi đưa vào vận hành thực tế?
+\end{enumerate}
+
+Việc giải quyết toàn diện các câu hỏi trên không thể chỉ dựa vào các phân tích thống kê thông thường. Dự án đòi hỏi một cách tiếp cận đa chiều, kết hợp mật thiết giữa Khoa học dữ liệu (Data Science), Khai phá Quy trình (Process Mining) và Học máy (Machine Learning) nhằm mục tiêu vừa "bắt bệnh" hệ thống hiện tại, vừa thiết kế giải pháp cho tương lai.
+
+\subsection{Cách tiếp cận}
+Dự án tiếp cận bài toán bằng phương pháp Process Mining đa hướng:
+\begin{enumerate}
+    \item \textbf{Làm sạch dữ liệu (Data Cleaning):} Lọc và chuẩn hóa các sự kiện nhiễu để xây dựng lại vòng đời hoàn chỉnh của hồ sơ.
+    \item \textbf{Khám phá quy trình (Process Discovery):} Dùng mô hình mạng Petri Net và Directly-Follows Graph (DFG) để mô hình hóa toàn cảnh sự luân chuyển nghiệp vụ.
+    \item \textbf{Phân tích độ lệch và tuân thủ (Conformance \& Bottleneck Analysis):} Tìm ra "Happy path", tính toán độ lệch (edit distance), đo đạc hiệu năng thời gian ở các nút thắt.
+    \item \textbf{Phân tích tương lai (Predictive ML):} Áp dụng học máy đa tiền tố để nhận diện rủi ro sớm.
+\end{enumerate}
+
+\subsection{Mục tiêu dự án}
+\begin{itemize}
+    \item Nhận diện chính xác vị trí và nguyên nhân gốc rễ gây ra nút thắt (Bottleneck) làm chậm quy trình giải ngân.
+    \item Phân tích mức độ tuân thủ quy trình của hệ thống IT và nhân viên vận hành.
+    \item Xây dựng một hệ thống cảnh báo sớm (Early Warning System) bằng Machine Learning nhằm dự đoán khả năng thành công hay thất bại của hồ sơ ngay từ những giai đoạn đầu tiên.
+\end{itemize}
+
+\section{Phương pháp và Kết quả phân tích (Methodology \& Results)}
+
+\subsection{Tổng quan về Dataset và Phân tích Khám phá (EDA)}
+Quá trình phân tích khám phá dữ liệu (EDA - Exploratory Data Analysis) trên tập dữ liệu BPI Challenge 2017 đóng vai trò nền tảng để hiểu rõ luồng vận hành thực tế. Với quy mô 1.201.090 sự kiện (events) trải trên 31.509 hồ sơ (cases), quá trình EDA đã bóc tách 26 loại Activity và phân loại chúng thành 3 nhóm sự kiện cốt lõi:
+\begin{itemize}
+    \item \textbf{Nhóm A\_ (Application State):} Thể hiện các mốc trạng thái chính của một hồ sơ vay, từ lúc khởi tạo (\texttt{A\_Create Application}), quá trình thẩm định (\texttt{A\_Validating}), cho đến các quyết định cuối cùng như chấp nhận (\texttt{A\_Accepted}), từ chối (\texttt{A\_Denied}) hoặc khách hàng tự hủy (\texttt{A\_Cancelled}).
+    \item \textbf{Nhóm O\_ (Offer State):} Ghi nhận các tương tác liên quan đến gói đề xuất khoản vay (\texttt{O\_Create Offer}, \texttt{O\_Sent}, \texttt{O\_Returned}). Điểm đặc biệt bộc lộ từ dữ liệu là một hồ sơ có thể xuất hiện nhiều vòng lặp sinh đề xuất mới.
+    \item \textbf{Nhóm W\_ (Workflow Action):} Phản ánh các tác vụ thủ công của nhân viên tín dụng thao tác trên hệ thống quản lý, ví dụ như gọi điện chăm sóc khách hàng (\texttt{W\_Call after offers}) hoặc kiểm tra giấy tờ (\texttt{W\_Validate application}).
+\end{itemize}
+
+Qua các thống kê mô tả và biểu diễn phân bố (Distribution Analysis), EDA chỉ ra rằng phần lớn các hồ sơ đi theo những biến thể (variants) tiêu chuẩn, nhưng có sự phân tán rất lớn về thời gian hoàn thành (Case Duration). Đặc biệt, tần suất lặp đi lặp lại của các sự kiện như \texttt{A\_Incomplete} (thiếu hồ sơ) và \texttt{A\_Validating} đã sớm báo hiệu sự tồn tại của các vòng lặp (ping-pong behavior) trong khâu bổ sung giấy tờ. Đây là tiền đề quan trọng định hướng cho quá trình chẩn đoán nút thắt (Bottleneck Analysis) chuyên sâu.
+
+\subsection{Phân tích Nghiệp vụ và Nút thắt (Bottleneck Analysis)}
+Việc phát hành nhiều offer (Multi-offer) mang lại thành tựu rõ rệt khi giúp tỷ lệ chấp nhận (Acceptance Rate) tăng từ 53.1\% lên 59.0\%. Tuy nhiên, cái giá phải trả là sự xuất hiện của trạng thái lỗi thiếu hồ sơ (\texttt{A\_Incomplete}), tạo thành nút thắt cổ chai nghiêm trọng làm kéo dài quy trình thêm 7 ngày (từ 13 ngày lên 20 ngày).
+\begin{itemize}
+    \item Phân tách thời gian cho thấy: Khách hàng ngâm hồ sơ chiếm 63\% thời gian trễ, còn hệ thống ngân hàng chậm xử lý chiếm 37\%.
+    \item Việc kiểm tra xu hướng theo tuần (Drift Analysis) chỉ ra tại một số tuần cao điểm (như tuần 25), thời gian chờ ở nút luân chuyển \texttt{O\_Returned $\rightarrow$ O\_Accepted} có thể lên tới 70.6 giờ.
+\end{itemize}
+
+\subsection{Kiểm tra Tuân thủ Quy trình (Conformance Checking)}
+Áp dụng thuật toán \textbf{Token-based Replay} (hoặc khoảng cách Edit-distance proxy) so sánh các case thực tế với đường dẫn chuẩn (Happy Path). Kết quả vô cùng khả quan với mức độ tuân thủ (Trace Fitness) đạt tới 99.30\%.
+\begin{itemize}
+    \item \textbf{Insight:} Nhân viên tuân thủ nghiêm ngặt quy trình hệ thống, không có gian lận. Do đó, nút thắt 7 ngày hoàn toàn thuộc về vấn đề hiệu suất (Performance), không phải do vi phạm tuân thủ (Compliance).
+\end{itemize}
+
+\subsection{Tích hợp Object-Centric Process Mining (OCPM) và Phân tích Đồ thị DFG}
+
+Sự khác biệt cốt lõi của dự án nằm ở việc kết hợp tư duy phân rã đối tượng (OCPM) với các thuật toán vẽ đồ thị (DFG) và cửa sổ trượt thời gian (Local-Window Drift) để tìm ra nguyên nhân gốc rễ của sự chậm trễ. Cách tiếp cận thuật toán được chia thành 3 giai đoạn như sau:
+
+\textbf{1. Giải quyết bài toán Spaghetti Process bằng thuật toán phân nhóm OCPM}\\
+Trong Process Mining truyền thống, khi ép buộc toàn bộ sự kiện vào một mã hồ sơ (\texttt{Application}), mối quan hệ 1-Nhiều (1 Application sinh ra nhiều Offer) tạo ra sự bùng nổ tổ hợp đường đi, dẫn tới biểu đồ rối rắm như mạng nhện (spaghetti process). Bằng tư duy \textbf{OCPM}, hệ thống thực hiện hai bước thuật toán để bóc tách:
+\begin{itemize}
+    \item \textbf{Phân mảnh đối tượng (Object Stratification):} Tách biệt hoàn toàn vòng đời cốt lõi của \texttt{Application} ra khỏi các luồng \texttt{Offer} độc lập. Nhóm các hồ sơ theo từng loại nghiệp vụ (\texttt{ApplicationType}).
+    \item \textbf{Lọc biến thể (Variant Coverage Algorithm):} Thuật toán quét và chỉ giữ lại $65\%$ các biến thể (variants) xuất hiện phổ biến nhất (Top-K Coverage). Điều này giúp tự động loại bỏ các hồ sơ bị biến dạng do những vòng lặp Offer bất thường, làm sạch tập dữ liệu đầu vào.
+\end{itemize}
+
+\textbf{2. Xây dựng Directly-Follows Graph (DFG) thông qua PM4PY}\\
+Từ tập dữ liệu đã tinh gọn, thư viện \textbf{PM4PY} được sử dụng để nội suy đồ thị trực tiếp (DFG). Để tối ưu hóa trực quan, một \textbf{Thuật toán Cắt tỉa (Pruning Algorithm)} được áp dụng:
+\begin{itemize}
+    \item \textbf{Lọc tần suất cạnh (\texttt{min\_edge\_freq}):} Lập bảng băm (Hash map) lưu trữ các cặp cạnh nối tiếp nhau (\texttt{src} $\rightarrow$ \texttt{tgt}) và loại bỏ bất kỳ cạnh nào có tần suất xuất hiện dưới mức ngưỡng (ví dụ: $< 15$ lần).
+    \item \textbf{Lọc nút nhánh (\texttt{top\_outgoing\_per\_node}):} Tại mỗi nút trạng thái, thuật toán đánh giá trọng số cạnh dựa trên Tần suất và Thời gian chờ P90 (90th percentile), sau đó chỉ giữ lại tối đa 2 hướng đi chính (\texttt{outgoing edges = 2}). 
+\end{itemize}
+Nhờ quá trình tinh chỉnh thuật toán này, đồ thị DFG sinh ra phản ánh rõ nét luồng chính (Happy Path) cùng với hai thông số then chốt trên từng cạnh: Số lần luồng dữ liệu đi qua (Frequency) và Độ trễ thời gian tối đa (P90 Waiting Time).
+
+\textbf{3. Thuật toán phân tích Concept Drift qua Cửa sổ trượt (Local-Window Analysis)}\\
+Để hiểu vì sao hệ thống lại xảy ra độ trễ, dự án không vẽ một DFG khổng lồ cho toàn bộ 2 năm, mà sử dụng thuật toán \textbf{Cửa sổ trượt cục bộ (Local-Window Analysis)} xoay quanh các điểm gãy (Concept Drift):
+\begin{enumerate}
+    \item \textbf{Dò tìm điểm Drift:} Thuật toán phân tích chuỗi thời gian (Time-series) phát hiện các tuần có sự biến động lớn về tần suất lỗi \texttt{A\_Incomplete} (như Tuần 19, 24, 25).
+    \item \textbf{Cửa sổ trượt DFG cục bộ:} Tại mỗi điểm gãy, thuật toán trích xuất một khoảng thời gian hẹp (window $\pm 1$ tuần) và sinh ra hai DFG độc lập: Một DFG \textit{Trước điểm gãy (Before)} và một DFG \textit{Sau điểm gãy (After)}.
+    \item \textbf{So sánh nhân quả (Causal Inference):} Thuật toán đối chiếu trực tiếp hai cấu trúc DFG, tính toán mức độ thay đổi tần suất ($\Delta freq$) và thời gian chờ ($\Delta p90\_wait$). Ví dụ: Thuật toán đã phát hiện tại Tuần 24, nút \texttt{W\_Validate application} tăng vọt về số vòng lặp, xác định chính xác đây là tác nhân vật lý làm thay đổi hiệu năng toàn hệ thống.
+\end{enumerate}
+Tóm lại, logic kết hợp giữa Lọc biến thể OCPM, Cắt tỉa DFG của PM4PY và Cửa sổ trượt Concept Drift đã mang lại một công cụ phân tích nhân quả cực kỳ sắc bén và mạnh mẽ cho bài toán hiệu suất.
+
+\subsection{Bài toán cảnh báo sớm}
+Thay vì đợi kết quả cuối cùng, mô hình \textbf{Machine Learning (SGDClassifier)} sử dụng đặc trưng thưa (Sparse features) đã được huấn luyện để dự báo khả năng chốt đơn thành công ở các cột mốc sớm (Multi-prefix approach).
+\begin{table}[H]
+\centering
+\begin{tabular}{@{}lc p{9cm}@{}}
+\toprule
+\textbf{Độ dài Prefix} & \textbf{ROC-AUC} & \textbf{Nhận xét} \\ \midrule
+5 sự kiện & 0.61 & Thông tin còn hạn chế, mô hình dự đoán tốt hơn mức ngẫu nhiên. \\
+8 sự kiện & 0.48 & Vùng mù thông tin (Information Blind Spot). Quá trình xử lý \texttt{Incomplete} khiến hệ thống bị nhiễu. \\
+12 sự kiện & \textbf{0.85} & Hệ thống có đủ bằng chứng hành vi để dự báo kết quả khoản vay một cách chính xác. \\ \bottomrule
+\end{tabular}
+\caption{Kết quả mô hình học máy theo từng Prefix}
+\end{table}
+
+\subsection{Bài toán cause-effects, xây dựng hệ thống nhân quả và ứng dụng happy paths cho tương lai}
+Để đảm bảo quy trình cải thiện bền vững, dự án đã xác định tập hợp **Happy Paths** (đại diện cho luồng di chuyển tối ưu nhất với chi phí thời gian thấp). Dựa trên phân tích Root-Cause, chúng tôi chỉ ra rằng sự sai lệch (deviations) khởi nguồn chủ yếu do các loại hồ sơ tín dụng cụ thể (Application Type) và mục đích vay vốn (Loan Goal). 
+
+Với các kết quả phát hiện được, chúng tôi đề xuất hệ thống **PLG Application (Process-Level Generation)** để mô phỏng (What-if scenarios). Thông qua mô phỏng, ngân hàng có thể đánh giá nguyên nhân - kết quả (cause-effects) của các thay đổi, chẳng hạn như áp dụng quy tắc cảnh báo sớm ở sự kiện thứ 5 để loại bỏ các hồ sơ xấu (Unhappy Paths). Hướng đi này giúp thiết kế lại luồng quy trình mới (Happy Paths của tương lai) với mục tiêu giảm 30\% thời gian trễ và tiết kiệm nguồn lực vận hành của Back-office.
+
+\end{document}
