@@ -3,3 +3,6 @@ notebooks/bpmn-model
 notebooks/process_tree.svg
 ocpm/output
 EvaluationLogs/Ostovar 
+EvaluationLogs/concept-drift-characterization/
+__pycache__/
+*.py[cod]

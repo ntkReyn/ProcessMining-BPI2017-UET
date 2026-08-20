@@ -1,0 +1,28 @@
+﻿key,value
+dataset,BPI Challenge 2017
+input_file,data\bpi-challenge-2017\bpi_2017_cleaned.csv
+method,DFG occurrence sets + adjacent windows + JSD
+window_sizes,150;300;500
+step,10
+threshold,median + z * 1.4826 * MAD with safety floors
+threshold_z,6.0
+cluster_tolerance,500
+calendar_consensus_days,14
+localization_width,300
+lifecycle_filter,complete
+ground_truth_available,False
+interpretation,"Rows are exploratory drift candidates, not validated TP/FP labels"
+input_rows,1202267
+input_cases,31509
+retained_rows,475306
+retained_cases,31509
+cases_without_retained_events,0
+skipped_missing_required_values,0
+lifecycle_filter,complete
+lifecycle_count:ate_abort,85224
+lifecycle_count:complete,475306
+lifecycle_count:resume,127160
+lifecycle_count:schedule,149104
+lifecycle_count:start,128227
+lifecycle_count:suspend,215402
+lifecycle_count:withdraw,21844
